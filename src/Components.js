@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form'
 
-export class Foo extends Component {
-  state = { text: 'default text' }
+class Foo extends Component {
+  state = { text: 'Sarah' }
 
   componentDidMount() {
     console.log('component did mount')
-    this.setState({ text: 'default text' })
+    this.setState({ text: 'Sarah' })
   }
 
   handleChange = (e) => {
@@ -20,11 +21,20 @@ export class Foo extends Component {
       <div>
         <Link component="a" to="/bar">/bar</Link>
         <p>foo component</p>
-        <input type="text" value={text} onChange={this.handleChange} />
+        <Field
+          name="name"
+          type="text"
+          component="input"
+        />
       </div>
     )
   }
 }
+
+export default reduxForm({
+  form: 'FooForm',
+  enableReinitialize: true
+})(Foo);
 
 export const Bar = () => {
   return (
